@@ -1,0 +1,41 @@
+- name: require local command
+  run_once: True
+  vars:
+    path: "PATH={{ environment
+                   | map(attribute='PATH')
+                   | first
+                   | d(lookup('env', 'PATH'))
+                   | quote }}"
+  with_flattened: >
+    {{ lookup('flattened', [ command ], wantlist=True)
+       | select('string')
+       | difference(['', omit]) }}
+  when: require_local_command[path][item] is not defined
+  set_fact:
+    require_local_command: >
+      {{ require_local_command
+         | combine(
+             { path:
+               require_local_command[path]
+               | d({})
+               | combine(
+                   { item:
+                     lookup('pipe',
+                            "{{ path }}
+                             error=0
+                             { if command -v command || which which; then
+                                 command -v -- {{ item|quote }} || which -- {{ item|quote }}
+                                 error=$?
+                               else
+                                 test -x {{ item|quote }} || error=60
+                               fi
+                             } >/dev/null
+                             echo $error
+                             exit {{ only_check | ternary('0', '$error') }}
+                            "
+                     ) == '0'
+                   }
+                 )
+             }
+           )
+      }}

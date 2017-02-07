@@ -1,0 +1,26 @@
+---
+- hosts: all
+  gather_facts: False
+  roles:
+  - ansible-require-local-command-role
+  - { role: ansible-require-local-command-role, command: ssh }
+  - { role: ansible-require-local-command-role, command: [ ls, mv, ls ]}
+  - { role: ansible-require-local-command-role, command: [ type, command, which, test, ls, ssh, /usr/bin/ssh ]}
+  - { role: ansible-require-local-command-role, command: "{{ playbook_dir }}/../-a b.sh" }
+  - role: ansible-require-local-command-role
+    command: "-a b.sh"
+    only_check: True
+  - role: ansible-require-local-command-role
+    command: "-a b.sh"
+    environment:
+      PATH: "{{lookup('env', 'PATH')}}:{{ playbook_dir }}/.."
+  - { role: ansible-require-local-command-role, command: '' }
+  - { role: ansible-require-local-command-role, command: [ '', ansible ] }
+  - { role: ansible-require-local-command-role, command: {} }
+  - { role: ansible-require-local-command-role, command: {'a':'b'} }
+  - { role: ansible-require-local-command-role, command: "{{ omit }}" }
+  - { role: ansible-require-local-command-role, command: "{{ [ 'ansible', omit ] }}" }
+
+  tasks:
+  - debug: msg="{{ require_local_command }}"
+    run_once: True

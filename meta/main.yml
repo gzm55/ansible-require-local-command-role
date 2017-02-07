@@ -1,0 +1,30 @@
+galaxy_info:
+  author: James Z.M. Gao
+  description: Require that one or more local commands are present.
+
+  license: BSD
+
+  min_ansible_version: 2.0
+
+  #
+  # Below are all platforms currently available. Just uncomment
+  # the ones that apply to your role. If you don't see your
+  # platform on this list, let us know and we'll get it added!
+  #
+  platforms:
+  - name: GenericBSD
+    versions:
+    - any
+  - name: GenericLinux
+    versions:
+    - any
+  - name: Windows
+    versions:
+    - all
+  - name: GenericUNIX
+    versions:
+    - any
+
+  galaxy_tags: [system]
+
+dependencies: []
