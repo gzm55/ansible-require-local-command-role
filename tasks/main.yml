@@ -16,26 +16,23 @@
       {{ require_local_command
          | combine(
              { path:
-               require_local_command[path]
-               | d({})
-               | combine(
-                   { item:
-                     lookup('pipe',
-                            "{{ path }}
-                             error=0
-                             { if command -v command || which which; then
-                                 command -v -- {{ item|quote }} || which -- {{ item|quote }}
-                                 error=$?
-                               else
-                                 test -x {{ item|quote }} || error=60
-                               fi
-                             } >/dev/null
-                             echo $error
-                             exit {{ only_check | ternary('0', '$error') }}
-                            "
-                     ) == '0'
-                   }
-                 )
-             }
+               { item:
+                 lookup('pipe',
+                        "{{ path }}
+                         error=0
+                         { if command -v command || which which; then
+                             command -v -- {{ item|quote }} || which -- {{ item|quote }}
+                             error=$?
+                           else
+                             test -x {{ item|quote }} || error=60
+                           fi
+                         } >/dev/null
+                         echo $error
+                         exit {{ only_check | ternary('0', '$error') }}
+                        "
+                 ) == '0'
+               }
+             },
+             recursive=True
            )
       }}
