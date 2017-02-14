@@ -7,9 +7,11 @@
                    | d(lookup('env', 'PATH'))
                    | quote }}"
   with_flattened: >
-    {{ lookup('flattened', [ command ], wantlist=True)
-       | select('string')
-       | difference(['', omit]) }}
+    {{ (only_check or inventory_hostname == ansible_play_hosts[0])
+       | ternary(lookup('flattened', [ command ], wantlist=True)
+                 | select('string')
+                 | difference(['', omit]),
+                 []) }}
   when: require_local_command[path][item] is not defined
   set_fact:
     require_local_command: >
