@@ -12,7 +12,6 @@
                  | select('string')
                  | difference(['', omit]),
                  []) }}
-  #when: require_local_command[path][item] is not defined
   when: >-
         require_local_command is not defined
         or require_local_command[path] is not defined
