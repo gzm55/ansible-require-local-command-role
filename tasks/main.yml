@@ -7,7 +7,7 @@
                    | d(lookup('env', 'PATH'))
                    | quote }}"
   with_flattened: >
-    {{ (only_check or inventory_hostname == ansible_play_hosts[0])
+    {{ (only_check or inventory_hostname == ansible_play_hosts_all[0])
        | ternary(lookup('flattened', [ command ], wantlist=True)
                  | select('string')
                  | difference(['', omit]),
