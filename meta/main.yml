@@ -1,4 +1,6 @@
 galaxy_info:
+  role_name: require_local_command
+  namespace: gzm55
   author: James Z.M. Gao
   description: Require that one or more local commands are present.
 
