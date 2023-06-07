@@ -31,4 +31,6 @@ jobs:
     runs-on: ubuntu-20.04
     needs: [ test-job ]
     if: github.ref_type	== 'tag' && github.ref_protected == true
-    run: echo this is deploy job
+    steps:
+    - name: deploy to ansible galaxy
+      run: echo this is deploy job
