@@ -1,4 +1,4 @@
-require_local_command
+require_local_command (0.0.3)
 =========
 
 Require that one or more local commands are present.
