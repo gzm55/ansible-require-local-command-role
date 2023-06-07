@@ -6,7 +6,15 @@ jobs:
     name: check the role
     runs-on: ubuntu-20.04
     steps:
-    - name: check ansible version
-      run: ansible --version
-    - name: check pip version
-      run: pip --version || pip3 --version
+    - uses: actions/checkout@v3
+
+    - name: check versions
+      run: |
+        python3 --version
+        pip3 --version
+        ansible --version
+
+    - name: prepare tests
+      run: |
+        pip3 install -r requirements.txt
+        printf '[defaults]\nroles_path=../' >ansible.cfg
