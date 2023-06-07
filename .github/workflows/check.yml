@@ -1,0 +1,12 @@
+name: check role
+on: push
+
+jobs:
+  check-job:
+    name: check the role
+    runs-on: ubuntu-18.04
+    steps:
+    - name: check ansible version
+      run: ansible --version
+    - name: check pip version
+      run: pip --version || pip3 --version
