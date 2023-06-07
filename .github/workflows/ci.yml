@@ -4,7 +4,7 @@ on: push
 jobs:
   test-job:
     name: test the role
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v3
 
@@ -29,17 +29,13 @@ jobs:
 
   lint-job:
     name: lint codes
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
-    - uses: actions/setup-python@v4
-      with:
-        python-version: '3.9'
     - uses: actions/checkout@v3
     - name: prepare lint
       run: |
-        python3 --version
         pip3 install -r requirements.txt
-        pip3 install 'ansible-lint<5.0.0' 'ansible<2.10'  'rich>=10.0.0,<11.0.0'
+        pip3 install ansible-lint
         ansible-lint --version
         printf '[defaults]\nroles_path=../' >ansible.cfg
     - name: lint
@@ -47,7 +43,7 @@ jobs:
 
   deploy-job:
     name: deploy the role on tag
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     needs: [ test-job, lint-job ]
     if: github.ref_type == 'tag'
     steps:
