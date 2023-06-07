@@ -14,7 +14,7 @@
   - role: ansible-require-local-command-role
     command: "-a b.sh"
     environment:
-      PATH: "{{lookup('env', 'PATH')}}:{{ playbook_dir }}/.."
+      PATH: "{{ lookup('env', 'PATH') }}:{{ playbook_dir }}/.."
   - { role: ansible-require-local-command-role, command: '' }
   - { role: ansible-require-local-command-role, command: [ '', ansible ] }
   - { role: ansible-require-local-command-role, command: {} }
