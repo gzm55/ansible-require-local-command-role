@@ -33,5 +33,9 @@ jobs:
     needs: [ test-job ]
     if: github.ref_type	== 'tag'
     steps:
-    - name: deploy to ansible galaxy
-      run: echo "this is deploy job ${{ github.ref_protected }}"
+    - uses: actions/checkout@v3
+    - name: publish the role to Galaxy
+      uses: robertdebock/galaxy-action@1.2.1
+      with:
+        galaxy_api_key: ${{ secrets.GALAXY_API_KEY }}
+        git_branch: ${{ github.ref_name }}
