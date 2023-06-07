@@ -1,8 +1,8 @@
-name: check role
+name: ci workflow
 on: push
 
 jobs:
-  check-job:
+  test-job:
     name: check the role
     runs-on: ubuntu-20.04
     steps:
@@ -26,3 +26,9 @@ jobs:
 
     - name: run ci check
       run: ansible-playbook tests/test.yml -i tests/inventory
+
+  deploy-job:
+    runs-on: ubuntu-20.04
+    needs: [ test-job ]
+    if: github.ref_type	== 'tag' && github.ref_protected == true
+    run: echo this is deploy job
