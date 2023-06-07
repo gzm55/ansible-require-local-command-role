@@ -13,6 +13,7 @@ jobs:
         python3 --version
         pip3 --version
         ansible --version
+        command -v ansible-lint >/dev/null && ansible-lint --version
 
     - name: prepare tests
       run: |
