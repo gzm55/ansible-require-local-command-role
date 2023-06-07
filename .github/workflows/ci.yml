@@ -31,15 +31,19 @@ jobs:
     name: lint codes
     runs-on: ubuntu-20.04
     steps:
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
     - uses: actions/checkout@v3
     - name: prepare lint
       run: |
+        python3 --version
         pip3 install -r requirements.txt
         pip3 install ansible-lint
+        ansible-lint --version
         printf '[defaults]\nroles_path=../' >ansible.cfg
     - name: lint
       run: ansible-lint --show-relpath
-        #- uses: ansible/ansible-lint-action@main
 
   deploy-job:
     name: deploy the role on tag
