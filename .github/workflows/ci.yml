@@ -32,6 +32,10 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v3
+    - name: prepare lint
+      run: |
+        pip3 install -r requirements.txt
+        printf '[defaults]\nroles_path=../' >ansible.cfg
     - uses: ansible/ansible-lint-action@main
 
   deploy-job:
