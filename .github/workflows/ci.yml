@@ -39,7 +39,7 @@ jobs:
       run: |
         python3 --version
         pip3 install -r requirements.txt
-        pip3 install ansible-lint=6.13.1
+        pip3 install ansible-lint==6.13.1
         ansible-lint --version
         printf '[defaults]\nroles_path=../' >ansible.cfg
     - name: lint
