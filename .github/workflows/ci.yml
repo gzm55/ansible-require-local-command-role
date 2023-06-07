@@ -27,11 +27,18 @@ jobs:
     - name: run ci check
       run: ansible-playbook tests/test.yml -i tests/inventory
 
+  lint-job:
+    name: lint codes
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v3
+    - uses: ansible/ansible-lint-action@6.16.0
+
   deploy-job:
     name: deploy the role on tag
     runs-on: ubuntu-20.04
-    needs: [ test-job ]
-    if: github.ref_type	== 'tag'
+    needs: [ test-job, lint-job ]
+    if: github.ref_type == 'tag'
     steps:
     - uses: actions/checkout@v3
     - name: publish the role to Galaxy
