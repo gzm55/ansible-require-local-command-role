@@ -6,12 +6,13 @@
                    | first
                    | d(lookup('env', 'PATH'))
                    | quote }}"
-  with_flattened: >
+  loop: >
     {{ (only_check or inventory_hostname == ansible_play_hosts_all[0])
        | ternary(lookup('flattened', [ command ], wantlist=True)
                  | select('string')
                  | difference(['', omit]),
-                 []) }}
+                 [])
+       | flatten }}
   when: >-
         require_local_command is not defined
         or require_local_command[path] is not defined

@@ -1,4 +1,4 @@
-require_local_command (0.0.3)
+require_local_command (1.0.0-dev)
 =========
 
 Require that one or more local commands are present.
@@ -25,6 +25,7 @@ Requirements
 1. `command` or `which` command is availiable on the controling machine.
 This should be true for almost all linux machines.
 2. jinja2 >= 2.7
+3. requires ansible 2.5+ from `1.0.0`
 
 Role Variables
 --------------
