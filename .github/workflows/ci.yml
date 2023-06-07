@@ -3,7 +3,7 @@ on: push
 
 jobs:
   test-job:
-    name: check the role
+    name: test the role
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v3
@@ -28,9 +28,10 @@ jobs:
       run: ansible-playbook tests/test.yml -i tests/inventory
 
   deploy-job:
+    name: deploy the role on tag
     runs-on: ubuntu-20.04
     needs: [ test-job ]
-    if: github.ref_type	== 'tag' && github.ref_protected == true
+    if: github.ref_type	== 'tag'
     steps:
     - name: deploy to ansible galaxy
-      run: echo this is deploy job
+      run: echo "this is deploy job ${{ github.ref_protected }}"
