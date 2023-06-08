@@ -15,13 +15,13 @@ galaxy_info:
   #
   platforms:
   - name: GenericBSD
-    versions: [any]
+    versions: [all]
   - name: GenericLinux
-    versions: [any]
+    versions: [all]
   - name: Windows
-    versions: [any]
+    versions: [all]
   - name: GenericUNIX
-    versions: [any]
+    versions: [all]
 
   galaxy_tags: [system]
 
