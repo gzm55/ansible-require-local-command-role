@@ -25,7 +25,7 @@ Requirements
 1. `command` or `which` command is availiable on the controling machine.
 This should be true for almost all linux machines.
 2. jinja2 >= 2.7
-3. requires ansible 2.5+ from `1.0.0`
+3. requires ansible 2.8+ from `1.0.0`
 
 Role Variables
 --------------

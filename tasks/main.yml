@@ -17,7 +17,7 @@
         require_local_command is not defined
         or require_local_command[path] is not defined
         or require_local_command[path][item] is not defined
-  set_fact:
+  ansible.builtin.set_fact:
     require_local_command: >
       {{ require_local_command
          | combine(

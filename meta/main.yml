@@ -6,7 +6,9 @@ galaxy_info:
 
   license: BSD
 
-  min_ansible_version: "2.5"
+  # 'loop' keyword requires ansible 2.5
+  # 'ansible.builtin.*' collection requires ansible 2.8
+  min_ansible_version: "2.8"
 
   #
   # Below are all platforms currently available. Just uncomment
