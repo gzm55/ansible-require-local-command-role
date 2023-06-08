@@ -1,8 +1,9 @@
 ---
-- name: test this role
+- name: Test this role
   hosts: all
   gather_facts: False
   serial: 1
+  strategy: linear
   roles:
   - ansible-require-local-command-role
   - { role: ansible-require-local-command-role, command: ssh }
@@ -24,7 +25,7 @@
   - { role: ansible-require-local-command-role, command: "{{ [ 'ansible', omit ] }}" }
 
   tasks:
-  - name: dump require_local_command
+  - name: Dump require_local_command
     run_once: True
     ansible.builtin.debug:
       msg: "{{ require_local_command }}"

@@ -1,4 +1,4 @@
-- name: require local command
+- name: Require local command
   run_once: True
   vars:
     path: "PATH={{ environment
