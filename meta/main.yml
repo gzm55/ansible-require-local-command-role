@@ -6,7 +6,7 @@ galaxy_info:
 
   license: BSD
 
-  min_ansible_version: 2.0
+  min_ansible_version: "2.5"
 
   #
   # Below are all platforms currently available. Just uncomment
@@ -14,20 +14,16 @@ galaxy_info:
   # platform on this list, let us know and we'll get it added!
   #
   platforms:
-  - name: GenericBSD
-    versions:
-    - any
-  - name: GenericLinux
-    versions:
-    - any
-  - name: Windows
-    versions:
-    - all
-  - name: GenericUNIX
-    versions:
-    - any
+    - name: GenericBSD
+      versions: [any]
+    - name: GenericLinux
+      versions: [any]
+    - name: Windows
+      versions: [any]
+    - name: GenericUNIX
+      versions: [any]
 
   galaxy_tags: [system]
 
-allow_duplicates: yes
+allow_duplicates: true
 dependencies: []
