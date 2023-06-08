@@ -1,45 +1,46 @@
+---
 name: ci workflow
-on: push
+"on": push
 
 jobs:
   test-job:
     name: test the role
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
+    - uses: actions/checkout@v3
 
-      - name: check versions
-        run: |
-          python3 --version
-          pip3 --version
-          ansible --version
+    - name: check versions
+      run: |
+        python3 --version
+        pip3 --version
+        ansible --version
 
-      - name: prepare tests
-        run: |
-          pip3 install -r requirements.txt
-          printf '[defaults]\nroles_path=../' >ansible.cfg
-          touch -- "-a b.sh"
-          chmod +x -- "-a b.sh"
+    - name: prepare tests
+      run: |
+        pip3 install -r requirements.txt
+        printf '[defaults]\nroles_path=../' >ansible.cfg
+        touch -- "-a b.sh"
+        chmod +x -- "-a b.sh"
 
-      - name: syntax check
-        run: ansible-playbook tests/test.yml -i tests/inventory --syntax-check
+    - name: syntax check
+      run: ansible-playbook tests/test.yml -i tests/inventory --syntax-check
 
-      - name: run ci check
-        run: ansible-playbook tests/test.yml -i tests/inventory
+    - name: run ci check
+      run: ansible-playbook tests/test.yml -i tests/inventory
 
   lint-job:
     name: lint codes
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
-      - name: prepare lint
-        run: |
-          pip3 install -r requirements.txt
-          pip3 install ansible-lint
-          ansible-lint --version
-          printf '[defaults]\nroles_path=../' >ansible.cfg
-      - name: lint
-        run: ansible-lint --show-relpath
+    - uses: actions/checkout@v3
+    - name: prepare lint
+      run: |
+        pip3 install -r requirements.txt
+        pip3 install ansible-lint
+        ansible-lint --version
+        printf '[defaults]\nroles_path=../' >ansible.cfg
+    - name: lint
+      run: ansible-lint --show-relpath
 
   deploy-job:
     name: deploy the role on tag
@@ -47,9 +48,9 @@ jobs:
     needs: [test-job, lint-job]
     if: github.ref_type == 'tag'
     steps:
-      - uses: actions/checkout@v3
-      - name: publish the role to Galaxy
-        uses: robertdebock/galaxy-action@1.2.1
-        with:
-          galaxy_api_key: ${{ secrets.GALAXY_API_KEY }}
-          git_branch: ${{ github.ref_name }}
+    - uses: actions/checkout@v3
+    - name: publish the role to Galaxy
+      uses: robertdebock/galaxy-action@1.2.1
+      with:
+        galaxy_api_key: ${{ secrets.GALAXY_API_KEY }}
+        git_branch: ${{ github.ref_name }}
