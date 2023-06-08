@@ -26,6 +26,6 @@
 
   tasks:
   - name: Dump require_local_command
-    run_once: True
+    run_once: True # noqa: run-once[task]
     ansible.builtin.debug:
       msg: "{{ require_local_command }}"
